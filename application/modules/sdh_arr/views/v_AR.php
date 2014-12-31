@@ -1,0 +1,235 @@
+<?PHP
+/** View SD Home
+ * UR = user request , SD = Staff Dev , NNR = Notification New Request , CNR = Check New Request, DWR = Data Waiting Respond , SDH = 
+ * VE = validation / warning error form
+ *
+ *
+ *
+ */
+ 
+/* Error Form */ 
+$VE = validation_errors();
+if (!empty($VE) AND empty($status_openFTR))
+{$VE_gone = "";}
+else
+{$VE_gone = "gone";}
+/* End Error Form */
+
+$sess_dml = $this->session->flashdata('status_dml_dept');
+$msg_sess_dml = $this->session->flashdata('msg_status_dml_dept');
+if (($sess_dml=="Y") AND (!empty($msg_sess_dml)))
+{$class_dml = "";}
+else
+{$class_dml = "gone";}
+
+
+if(!empty($openFTR) AND !empty($status_openFTR))
+{
+	$class_E_modal = "";
+	?>
+	<script type="text/javascript">
+	
+		$(document).ready(function(){
+			var BTN_F_FTR = "<?php echo$openFTR; ?>";
+			$(document).ready(function(){
+				setTimeout(function(){
+					$("#"+BTN_F_FTR).trigger('click');
+			},10);
+			});
+		});
+	</script>
+	<?php
+}
+else
+{
+ $class_E_modal = "gone";
+}
+?>
+<script type="text/javascript" src="<?php echo base_url().'js/SD/js_sd_home.js';?>"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.datatable').dataTable({
+			"bJQueryUI": true,
+			"sPaginationType": "full_numbers"
+	});
+	$('sup').tooltip();
+	$('input.act').tooltip();
+	$('button.act').tooltip();
+});
+
+var img_url = "<?php echo base_url().'images/ext/'?>";
+var file_url = "<?php echo base_url().'uploads/'?>";
+var url_CCR = "<?php echo site_url().'sd_home/c_sd_home/SDH_CR';?>";
+var url_CDR = "<?php echo site_url().'sd_home/c_sd_home/SDH_DR';?>";
+var url_CRR = "<?php echo site_url().'sd_home/c_sd_home/SDH_RR';?>";
+var url_CWD = "<?php echo site_url().'sd_home/c_sd_home/SDH_WD';?>";
+var url_CNR = "<?php echo site_url().'sd_home/c_sd_home/SDH_NR';?>";
+var url_CWR = "<?php echo site_url().'sd_home/c_sd_home/SDH_WR';?>";
+var url_CTR = "<?php echo site_url().'sd_home/c_sd_home/SDH_CTR';?>";
+var url_CHR = "<?php echo site_url().'sd_home/c_sd_home/SDH_CHR';?>";
+var url_DAR = "<?php echo site_url().'status_request/c_sr/AR_detail';?>";
+var url_VN = "<?php echo site_url().'status_request/c_sr/SR_VN';?>";
+var id_user = "<?php echo $this->session->userdata('login_id');?>";
+</script>
+
+<div class="FE_95 FE_form" id="FAD_UR" style="margin-top:10px;">
+	<div class="alert alert-warning <?php echo $VE_gone; ?>" id="error_frm" >
+		<h4>Warning!</h4> <?php echo $openFTR;?> <br>
+		<?php echo validation_errors(); ?>
+	</div>
+	
+	<div class="alert alert-success <?php echo $class_dml; ?>" id="Was_TR">
+		<button type="button" class="close" >&times;</button>
+		<strong><?php echo substr($msg_sess_dml,0,8);?></strong> <?php echo substr($msg_sess_dml,8);?>
+	</div>
+	
+	<div class="alert alert-success gone" id="tryyy">
+		<input type="hidden" name="VN_YTR" id="VN_YTR"> 
+		<button type="button" class="close viewed_notif" >&times;</button>
+		<div id="TR_data">
+			
+		</div>
+	</div>
+	
+	<div class="alert alert-success gone" id="NHR">
+		<input type="hidden" name="VN_YHR" id="VN_YHR"> 
+		<button type="button" class="close viewed_notif" >&times;</button>
+		<div id="NHR_D">
+		
+		</div>
+	</div>
+	
+	<div class="FE_98 gone" id="NNR">
+		<div class="alert alert-block tengah">
+			<strong>Hey , we have <a href="<?php echo site_url().'sd_home/c_sd_home/SDH_index/WR'; ?>"><span class="btn btn-danger BTN_WR_SDH" id="NNR_COUNT"></span></a> New Requested</strong>
+		</div>
+	</div>
+</div>
+
+<!-- Data OP -->
+<div class="FE_95 FE_border FE_form FE_datatable" id="DATA_OP_SDH" style="margin-top:10px;">
+	<div class="FE_100 FE_datatable">
+		<div class="FE_100 FE_datatable">
+			<h4>All of Request </h4>
+		</div>
+		<table style="font-size:11px;" class="datatable">
+			<thead>
+				<tr>
+					<th>No</th>
+					<th>Request ID#</th>
+					<th>Request User</th>
+					<th>Request Based</th>
+					<th>Request Type</th>
+					<th>PIC Dev</th>
+					<th>Request Status</th>
+					<th>Request Created</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php
+			$N = 1;
+			foreach ($SR_AR_SDH_DATA as $AR)
+			{
+				$REQID_WT_SLASH = str_replace('/','_',$AR->request_id);
+				$REQID_WT_DASH = str_replace('-','_',$REQID_WT_SLASH);
+				?>
+				<script type="text/javascript">
+					var DR_<?php echo $N; ?> = "<?php echo $AR->request_id; ?>";
+				</script>
+				<tr>
+					<th><?PHP echo$N; ?></th>
+						<input type="hidden" id="DATA_WR_UR_<?php echo $N; ?>" value="<?php echo$AR->request_id; ?>">
+					<td><?PHP echo$AR->request_id; ?></td>
+					<td><?PHP echo$AR->requested_FullName; ?></td>
+					<td><?PHP echo$AR->request_based; ?></td>
+					<td><?PHP echo$AR->request_type; ?></td>
+					<td><?PHP echo$AR->PIC_fullname; ?></td>
+					<td><?PHP echo$AR->request_status; ?></td>
+					<th><?PHP echo $AR->request_dateCreated ; ?></th>
+					<th><i class="icon-list ttip" onClick="openMdl(DR_<?php echo $N; ?>)" data-toggle="tooltip" data-placement="top" title="Detail"></i> <a href="<?php echo $rep1.$rep2.$AR->request_id ?>" target="_blank"><i class="icon-print ttip" data-toggle="tooltip" data-placement="top" title="Print"></i></a></th>
+				</tr>
+				<?php
+				$N++;
+			}
+			?>
+			</tbody>
+		</table>
+	</div>
+</div>
+<!-- End Data OP -->
+
+<div id="Modal_FTR" class="modal hide fade">
+	<form method="POST" action="<?php echo site_url().'sd_home/c_sd_home/SDH_TR';?>">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<span style="font-size:21px">Detail Request</span>
+	</div>
+	<div class="modal-body">
+		<table class="FE_modal" border=1 cellpadding=3>
+			<tr>
+				<td width=30%>Request ID#</td>
+				<td><span id="D_REQID"></span></td>
+			</tr>
+			<tr class="FE_modal_even">
+				<td>Request Based</td>
+				<td><span id="D_REQBased"></span></td>
+			</tr>
+			<tr>
+				<td>Request Type</td>
+				<td><span id="D_REQType"></span></td>
+			</tr>
+			<tr class="FE_modal_even">
+				<td>Request Case</td>
+				<td><span id="D_REQCase"></span></td>
+			</tr>
+			<tr>
+				<td>Request Modul</td>
+				<td><span id="D_REQModul"></span></td>
+			</tr>
+			<tr class="FE_modal_even">
+				<td>Request Desc</td>
+				<td><span id="D_REQDesc"></span></td>
+			</tr>
+			<tr>
+				<td>Request Reason</td>
+				<td><span id="D_REQReason"></span></td>
+			</tr>
+			<tr class="FE_modal_even">
+				<td>User Requested</td>
+				<td><span id="D_REQFname"></span></td>
+			</tr>
+			<tr>
+				<td>Request Created</td>
+				<td><span id="D_REQCreated"></span></td>
+			</tr>
+			<tr class="FE_modal_even">
+				<td>PIC Dev</td>
+				<td><span id="D_REQPICDev"></span></td>
+			</tr>
+			<tr>
+				<td>Status</td>
+				<td><span id="D_REQStatus"></span></td>
+			</tr>
+			<tr class="FE_modal_even">
+				<td>Estimate Time</td>
+				<td><span id="D_REQEST"></span></td>
+			</tr>
+			<tr>
+				<td>Status Reason</td>
+				<td><span id="D_REQStatusReason"></span></td>
+			</tr>
+			<tr class="FE_modal_even">
+				<td>Status Created Date</td>
+				<td><span id="D_REQStatusDate"></span></td>
+			</tr>
+			<tr>
+				<td valign="top">Document Support</td>
+				<td><span id="D_REQDocumentSupport"></span></td>
+			</tr>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">Close</a>
+	</div>
+</div>

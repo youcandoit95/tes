@@ -1,0 +1,13 @@
+SELECT
+ request_id, requested_FullName,
+ request_based, request_type,
+ PIC_fullname, request_dateCreated AS request_dateCreated,
+ REPLACE(REPLACE(request_status,'Waiting_confirmation_DONE','WCD'),'_',' ') AS    request_status,requested_userDeptName,
+ SUBSTRING(request_statusDate, 1, 10) AS request_statusDate
+FROM AR
+WHERE STR_TO_DATE(request_dateCreated, '%d-%m-%Y') BETWEEN $P{from} AND $P{thru}
+AND REPLACE(request_status,'Waiting_confirmation_DONE','WCD') LIKE '%$P!{status}%'
+AND request_based like '%$P!{based}%'
+AND request_type like '%$P!{type}%'
+AND request_case like '%$P!{case}%'
+AND IFNULL(request_cancel,'N') != $P{cancel}

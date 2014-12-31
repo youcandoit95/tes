@@ -1,0 +1,76 @@
+body {padding-top: 60px;padding-bottom: 40px;}
+.sidebar-nav {padding: 9px 0;}
+@media (max-width: 980px) 
+{
+	/* Enable use of floated navbar text */
+    .navbar-text.pull-right {float: none;padding-left: 5px; padding-right: 5px;}
+}
+input.form{height:28px; margin-top:10px;}
+.border{border:1px solid;}.gone{display:none;}
+.dorong_kanan{float:right;}
+.tengah{text-align:center;}
+.ML5{margin-left:5px;}
+span.ACTV{cursor:pointer}
+span.pointer{cursor:pointer}
+
+.printer{width: 6%;float: right;opacity:0.4; -webkit-transition:0.3s; -moz-transition:0.3s;}
+.printer:hover{opacity:1;}
+.font-12{font-size:12px;}
+/* CSS BACKEND */
+	/* Status Form */
+	#successFrm{text-align:center;}
+	/* End Status Form */
+	
+	.backend_100{width:100%; float:left;}
+	.backend_50{width:49.5%; float:left}
+	.text-white{color:white;}
+	.text-white:hover{color:white;}
+	.backend_form_100{width:99%; float:left; font-family:Calibri;}
+	
+/* END CSS BACKEND */
+.ui-autocomplete-loading {
+    background: white url('../images/ui-anim_basic_16x16.gif') right center no-repeat;
+  }	
+#deleteUser{text-align:center;}
+#GO_FED_User_changePass{cursor:pointer; text-decoration:underline;}
+#GO_FED_User_Cancel_changePass{cursor:pointer; text-decoration:underline;}
+.cekAvUserTrue, .cekPassMatchTrue, .cekPassMatchTrue2{display:none; font-family:Arial,Tahoma,Verdana; font-size:11px; color:green;}
+.cekAvUserFalse, .cekPassMatchFalse, .cekPassMatchFalse2{display:none; font-family:Arial,Tahoma,Verdana; font-size:11px; color:red;}
+.loader{text-align: center;margin-left: 20%;margin-top: 0.6%; display:none;}
+.loader2{text-align: center;margin-left: 32%;margin-top: 0.6%; display:none;}
+
+	.Admin_dataStatus{width:99%; float:left;}
+	.Admin_dataButtonAdd{width:100%; float:left; text-align:right; margin-bottom:5px;}
+	.Admin_dataForm{width:99%; float:left;}
+	.Admin_dataContent{width:100%; float:left;}
+	.ttip{cursor:pointer;}
+	
+/* FRONT END */
+.FE_100{width:100%; float:left;}
+.FE_95{width:95%; float:left;}
+.FE_98{width:98%; float:left;}
+.FE_border{border: 1px solid #e5e5e5;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}
+.FE_form{padding: 10px 10px 0px 13px;}
+.FE_datatable{margin-bottom: 10px;}
+.FE_form_cancel{font-size:12px;}
+.FE_btn_data{font-size:10px;}
+.FE_SL_hover{background-color: #eeeeee;margin-right: -15px;margin-left: -15px;text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);color: #005580;}
+input.FE_btn_take{font-weight:bolder}
+table.FE_modal{font-size:13px; width:98%;}
+table.FE_modal tr:hover{color: #ffffff;
+text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+background-color: #006dcc;
+background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+background-repeat: repeat-x;
+border-color: #0044cc #0044cc #002a80;
+border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
+filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+tr.FE_modal_even{background:#ccc;}
+textarea{width:300px; min-height:70px; margin-top:10px;}
+/* END FRONT END */
